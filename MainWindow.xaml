@@ -5,8 +5,33 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MatchingGame"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="MainWindow" Height="800" Width="800">
+    <StackPanel>
+        <!-- Title -->
+        <TextBlock Margin="10 0 10 0" FontSize="16" HorizontalAlignment="Center"> 
+            <Bold>
+                Welcome to the matching game 
+            </Bold>
+        </TextBlock>
+        <!-- Steps -->
+        <TextBlock Margin="10 5 10 5"> 
+            <Bold>
+                Step 1 - load your partipipants data
+            </Bold>
+        </TextBlock>
+        <Button Name="LoadButton" Click="LoadButton_Click"> 
+            Load 
+        </Button>
+        <TextBlock Margin="10 5 10 5"> 
+            <Bold>
+                Step 2 - Run the game
+            </Bold>
+        </TextBlock>
+        <TextBlock Margin="10 5 10 5"> 
+            <Bold>
+                Step 3 - Watch the game results
+            </Bold>
+        </TextBlock>
+
+    </StackPanel>
 </Window>

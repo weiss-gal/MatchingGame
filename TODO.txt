@@ -1,0 +1,3 @@
+﻿TODO:
+- InputFileParser - move mandatory header to be a parameter
+- switch to MVVM architecture

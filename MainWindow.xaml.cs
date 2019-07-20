@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MatchingGame.GameManagement;
+using Microsoft.Win32;
 
 namespace MatchingGame
 {
@@ -20,9 +22,24 @@ namespace MatchingGame
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly string supportedFilesDesc = "Comma Separated Value files(*.csv)|*.csv|All files(*.*)|*.*";
+        private GameManager gm = null;
         public MainWindow()
         {
+            gm = new GameManager();
             InitializeComponent();
+        }
+
+        private void LoadButton_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = supportedFilesDesc;
+            if (openFileDialog.ShowDialog() == false)
+                return;
+            
+            var lm = gm.getLoadManager(openFileDialog.FileName);
+            var loadWindow = new LoadWindow(lm);
+            loadWindow.ShowDialog();
         }
     }
 }
