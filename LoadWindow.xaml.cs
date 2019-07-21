@@ -25,12 +25,28 @@ namespace MatchingGame
         {
             InitializeComponent();
             this.loadManager = loadManager;
-            this.loadManager.start();
+            try
+            {
+                this.loadManager.Load();
+            }
+            catch
+            {
+                ContinueButton.Content = "Close";
+            }
+            finally
+            {
+                ContinueButton.Visibility = System.Windows.Visibility.Visible;
+            }
         }
 
         private void MoreInfo_Click(object sender, RoutedEventArgs e)
         {
-            
+            MessageBox.Show("This button is not implemented");
+        }
+
+        private void Continue_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

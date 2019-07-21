@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace MatchingGame.GameEngine
 {
-    abstract class Constraint
+    public abstract class Constraint
     {
         abstract public bool checkMatch(Participant participant);
     }
 
-    class GenderBlockConstraint : Constraint
+    public class GenderBlockConstraint : Constraint
     {
         private readonly Gender gender;
 
-        GenderBlockConstraint(Gender gender)
+        public GenderBlockConstraint(Gender gender)
         {
             this.gender = gender;
         }
@@ -26,18 +26,18 @@ namespace MatchingGame.GameEngine
         }
     }
 
-    class ParticipantBlockConstraint : Constraint
+    public class ParticipantBlockConstraint : Constraint
     {
-        private readonly Participant participant;
+        private readonly string participantName;
 
-        ParticipantBlockConstraint(Participant participant)
+        public ParticipantBlockConstraint(string name)
         {
-            this.participant = participant;
+            this.participantName = name;
         }
 
         public override bool checkMatch(Participant participant)
         {
-            return !(this.participant == participant);
+            return !(this.participantName == participant.name);
         }
     }
 }

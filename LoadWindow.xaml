@@ -11,8 +11,11 @@
             <TextBlock Margin="10 0 10 0" FontSize="16" HorizontalAlignment="Center">
                        Loading
             </TextBlock>
-            <Button Name="MoreInfo" Click="MoreInfo_Click">
+            <Button Name="MoreInfoButton" Click="MoreInfo_Click">
                 show more info
+            </Button>
+            <Button Name="ContinueButton" Visibility="Hidden" Click="Continue_Click">
+                Continue
             </Button>
         </StackPanel>
     </Grid>

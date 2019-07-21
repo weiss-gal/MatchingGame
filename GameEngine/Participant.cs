@@ -6,14 +6,35 @@ using System.Threading.Tasks;
 
 namespace MatchingGame.GameEngine
 {
-    enum Gender
+    public enum Gender
     {
         Male,
         Female
     }
-    class Participant
+
+    public static class GenderUtils
     {
-        Participant (String name, Gender gender)
+
+        static public Gender? Parse(string genderString)
+        {
+            switch (genderString.ToLower())
+            {
+                case "male":
+                case "m":
+                    return Gender.Male;
+                case "female":
+                case "f":
+                    return Gender.Female;
+            }
+
+            return null;
+        }
+
+    }
+
+    public class Participant
+    {
+        public Participant (String name, Gender gender)
         {
             this.name = name;
             this.gender = gender;
@@ -38,5 +59,6 @@ namespace MatchingGame.GameEngine
         {
             return !isEqual(x, y);
         }
+
     }
 }

@@ -37,7 +37,8 @@ namespace MatchingGame
             if (openFileDialog.ShowDialog() == false)
                 return;
             
-            var lm = gm.getLoadManager(openFileDialog.FileName);
+            var lm = gm.getLoadManager();
+            lm.SetFileName(openFileDialog.FileName);
             var loadWindow = new LoadWindow(lm);
             loadWindow.ShowDialog();
         }

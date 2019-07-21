@@ -1,3 +1,4 @@
 ﻿TODO:
 - InputFileParser - move mandatory header to be a parameter
+- add validation method to the game draft, so invalid input is detected as a callback from the loader.
 - switch to MVVM architecture
