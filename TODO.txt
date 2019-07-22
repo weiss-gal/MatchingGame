@@ -1,4 +1,6 @@
 ﻿TODO:
+- move to single window
 - InputFileParser - move mandatory header to be a parameter
+- implement the more info button
 - add validation method to the game draft, so invalid input is detected as a callback from the loader.
 - switch to MVVM architecture

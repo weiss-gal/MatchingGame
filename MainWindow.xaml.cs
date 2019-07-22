@@ -26,8 +26,8 @@ namespace MatchingGame
         private GameManager gm = null;
         public MainWindow()
         {
-            gm = new GameManager();
             InitializeComponent();
+            gm = new GameManager( (enabled) => RunButton.IsEnabled = enabled); //must happen after initialization, otherwise some callbacks may cause trouble
         }
 
         private void LoadButton_Click(object sender, RoutedEventArgs e)
@@ -41,6 +41,11 @@ namespace MatchingGame
             lm.SetFileName(openFileDialog.FileName);
             var loadWindow = new LoadWindow(lm);
             loadWindow.ShowDialog();
+        }
+
+        private void RunButton_Click(object sender, RoutedEventArgs e)
+        {
+            gm.Run();
         }
     }
 }

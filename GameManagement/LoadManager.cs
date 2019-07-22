@@ -7,26 +7,31 @@ using MatchingGame.Parsing;
 using MatchingGame.Logging;
 using MatchingGame.GameEngine;
 using MatchingGame.GameConstants;
+using System.Windows;
 
 namespace MatchingGame.GameManagement
 {
     public delegate void AddParticipantCB(Participant p);
     public delegate void AddConstraintToParticipantCB(string name, Constraint c);
+    public delegate void LoadCompleteCB();
 
     public class LoadManager
     {
         private Logger logger;
         private AddParticipantCB addParticipantCB;
-        private AddConstraintToParticipantCB addConstraintToParticipantCB; 
+        private AddConstraintToParticipantCB addConstraintToParticipantCB;
+        private LoadCompleteCB LoadCompleteCB;
 
         private string fileName;
         public LoadManager(AddParticipantCB addParticipantCB,
             AddConstraintToParticipantCB addConstraintToParticipantCB,
+            LoadCompleteCB loadCompleteCB,
             Logger logger)
         {
             this.logger = logger;
             this.addParticipantCB = addParticipantCB;
             this.addConstraintToParticipantCB = addConstraintToParticipantCB;
+            this.LoadCompleteCB = loadCompleteCB;
         }
 
 
@@ -48,6 +53,8 @@ namespace MatchingGame.GameManagement
             {
                 var name = line.items.FirstOrDefault(i => i.Key == ColNames.Name).Value;
                 var gender = GenderUtils.Parse(line.items.FirstOrDefault(i => i.Key == ColNames.Gender).Value);
+                if (gender == null)
+                    throw new ParsingException($"No gender found for participant {name}");
 
                 this.addParticipantCB(new Participant(name,(Gender)gender));
                 logger.Log($"Adding participant {name}");
@@ -76,7 +83,10 @@ namespace MatchingGame.GameManagement
                 }
 
             }
-
+            logger.Log("Loading complete");
+            LoadCompleteCB();
         }
+
+    
     }
 }

@@ -27,6 +27,9 @@
                 Step 2 - Run the game
             </Bold>
         </TextBlock>
+        <Button Name="RunButton"  IsEnabled="False" Click="RunButton_Click">
+            Run
+        </Button>
         <TextBlock Margin="10 5 10 5"> 
             <Bold>
                 Step 3 - Watch the game results
