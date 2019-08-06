@@ -35,6 +35,9 @@
                 Step 3 - Watch the game results
             </Bold>
         </TextBlock>
+        <TextBlock x:Name="ResultsText" Margin="10 5 10 5" Visibility="Hidden">
+            You should not see this text
+        </TextBlock>
 
     </StackPanel>
 </Window>

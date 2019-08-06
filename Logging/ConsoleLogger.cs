@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MatchingGame.Logging
 {
-    class ConsoleLogger : Logger
+    public class ConsoleLogger : Logger
     {
         override public void Log(string line)
         {

@@ -27,7 +27,9 @@ namespace MatchingGame
         public MainWindow()
         {
             InitializeComponent();
-            gm = new GameManager( (enabled) => RunButton.IsEnabled = enabled); //must happen after initialization, otherwise some callbacks may cause trouble
+            //must happen after initialization, otherwise some callbacks may cause trouble
+            gm = new GameManager( (enabled) => RunButton.IsEnabled = enabled,
+                (results) => { ResultsText.Text = results; ResultsText.Visibility = Visibility.Visible; }); 
         }
 
         private void LoadButton_Click(object sender, RoutedEventArgs e)

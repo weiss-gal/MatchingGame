@@ -10,6 +10,7 @@ using System.Windows;
 namespace MatchingGame.GameManagement
 {
     public delegate void SetRunEnabledCB(bool enabled);
+    public delegate void SetResultsCB(string results);
 
     class GameManager
     {
@@ -18,16 +19,13 @@ namespace MatchingGame.GameManagement
         private List<Participant> participants = new List<Participant>();
         private List<KeyValuePair<string, Constraint>> constraints = new List<KeyValuePair<string, Constraint>>();
         private SetRunEnabledCB setRunEnabledCB;
+        private SetResultsCB setResultsCB;
 
-        public GameManager(Logger logger)
-        {
-            this.logger = logger;
-        }
-
-        public GameManager(SetRunEnabledCB setRunEnabledCB)
+        public GameManager(SetRunEnabledCB setRunEnabledCB, SetResultsCB setResultsCB)
         {
             this.logger = new ConsoleLogger();
             this.setRunEnabledCB = setRunEnabledCB;
+            this.setResultsCB = setResultsCB;
         }
 
         private void AddParticipant(Participant participant)
@@ -41,7 +39,7 @@ namespace MatchingGame.GameManagement
                 throw new ArgumentException($"Attempting to add constraint to non-existins participant '{name}'");
 
             constraints.Add(new KeyValuePair<string, Constraint>(name, constraint));
-            logger.Log($"Added constraint of type '{constraint.GetType().Name}' to participant {name}");
+            logger.Log($"Added constraint '{constraint}' to participant {name}");
         }
 
         private void LoadComplete()
@@ -59,9 +57,24 @@ namespace MatchingGame.GameManagement
             return loadManager;
         }
 
+        private string ResultsToString(HashSet<HashSet<Participant>> results)
+        {
+            var sb = new StringBuilder();
+            uint matchCount = 1;
+            foreach (var r in results)
+            {
+                sb.AppendLine($"Match {matchCount}: {string.Join(" with ", r)}");
+                ++matchCount;
+            }
+
+            return sb.ToString();
+        }
+
         public void Run()
         {
-            MessageBox.Show("Method 'run' is not implemented yet");
+            var draft = new SimplePairsDraft(participants, constraints, logger);
+            var results = draft.Run();
+            setResultsCB(ResultsToString(results));
         }
     }
 }

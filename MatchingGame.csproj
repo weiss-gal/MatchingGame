@@ -84,7 +84,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="GameConstants\ColNames.cs" />
+    <Compile Include="GameEngine\SimplePairsDraft.cs" />
     <Compile Include="GameEngine\Constraint.cs" />
+    <Compile Include="GameEngine\Draft.cs" />
     <Compile Include="GameEngine\Participant.cs" />
     <Compile Include="GameManagement\GameManager.cs" />
     <Compile Include="GameManagement\LoadManager.cs" />

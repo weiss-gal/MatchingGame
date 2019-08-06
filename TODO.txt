@@ -1,4 +1,5 @@
 ﻿TODO:
+- add a new draft type that gets minimal matches from n attempts.
 - move to single window
 - InputFileParser - move mandatory header to be a parameter
 - implement the more info button

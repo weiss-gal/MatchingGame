@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,12 +32,17 @@ namespace MatchingGame.GameEngine
         }
 
     }
+    
+    internal static class ParticipantUtils
+    {
+        internal static TextInfo textInfo = new CultureInfo("en-US",false).TextInfo;
+    }
 
     public class Participant
     {
         public Participant (String name, Gender gender)
         {
-            this.name = name;
+            this.name = name.ToLower(); //participant name is case insensitive
             this.gender = gender;
         }
 
@@ -45,19 +51,9 @@ namespace MatchingGame.GameEngine
 
         /* Overrides */
 
-        private static bool isEqual(Participant x, Participant y)
+        public override string ToString()
         {
-            return (x.name == y.name && x.gender == y.gender);
-        }
-
-        public static bool operator ==(Participant x, Participant y)
-        {
-            return isEqual(x, y);
-        }
-
-        public static bool operator !=(Participant x, Participant y)
-        {
-            return !isEqual(x, y);
+            return ParticipantUtils.textInfo.ToTitleCase(this.name);
         }
 
     }

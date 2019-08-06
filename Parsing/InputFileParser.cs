@@ -40,7 +40,6 @@ namespace MatchingGame.Parsing
 
 class InputFileParser
     {
-        private ParserState state = ParserState.Created;
         private Logger logger;
         
 
@@ -73,7 +72,7 @@ class InputFileParser
             //read line by line
             var parsedLines = new List<ParsedLine>();
             uint lineIndex = 0;
-            var lineFields = csvParser.ReadFields();
+            var lineFields = csvParser.ReadFields().Select(f => f.Trim().ToLower());
            
             while (lineFields  != null)
             {
