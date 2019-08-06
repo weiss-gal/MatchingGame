@@ -72,16 +72,19 @@ class InputFileParser
             //read line by line
             var parsedLines = new List<ParsedLine>();
             uint lineIndex = 0;
-            var lineFields = csvParser.ReadFields().Select(f => f.Trim().ToLower());
+            var rawlineFields = csvParser.ReadFields();
            
-            while (lineFields  != null)
+            while (rawlineFields  != null)
             {
+                var lineFields = rawlineFields.Select(f => f.Trim().ToLower());
+
                 //create a list of key/values pairs
                 var items = headerFields.Zip(lineFields, (a, b) => new KeyValuePair<string, string>(a, b));
                 parsedLines.Add(new ParsedLine(lineIndex, items));
                 logger.Log($"Adding new parsed line [{lineIndex}]: {ItemsToString(items)}");
 
-                lineFields = csvParser.ReadFields();
+                rawlineFields = csvParser.ReadFields();
+                
                 lineIndex++;
             }
 
