@@ -1,0 +1,136 @@
+parsing API
+===========
+/api/parser/csv/parse (POST)
+description: This is a stateless API used for parsing 
+input: csv file
+output: 
+- 200 OK
+- json file in the following format:
+{
+  "participants": [
+    {
+      "name: "<first full name>",
+      "gender: "male|female" //one of them 
+    },
+    {
+      "name": "<second full name>",
+      "gender: "male|female" //one of them 
+    },
+    ...
+    {
+      "name": <last full name>",
+      "gender: "male|female" //one of them 
+    }
+  ]
+  "constraints": [
+    "first full name": {
+      "gender": "male|female|both",
+      "participants": [
+        "some name I don't want to meet",
+        "another name I don't want to meet"
+      ]
+    },
+    "second full name": {
+      "gender": "male|female|both",
+      "participants": [
+        "some name I don't want to meet",
+        "another name I don't want to meet"
+      ]
+    },
+    ...
+    "last full name": {
+      "gender": "male|female|both",
+      "participants": [
+        "some name I don't want to meet",
+        "another name I don't want to meet"
+      ]
+    }
+  ]
+}
+error output: 
+- 400 bad request
+- json file in the following format:
+{
+  "errorCode": TBD
+  "errorDescription": "what went wrong"
+  "errorLine": 12 //Zero-based line number of the problem 
+  "errorField": "<field name>" // [OPTIONAL] name of the field that is wrong
+}
+
+game engine API
+===============
+/api/matchingGame/test (POST)
+input: identical to the result of /api/parser/*/parse
+output:
+- 200 OK
+error output:
+- 400 bad request
+- json file in the following format:
+{
+  "errorCode": TBD
+  "errorDescription": "what went wrong"
+}
+
+/api/matchingGame/run (POST)
+input: identical to the result of /api/parser/*/parse
+output:
+- 200 OK
+- json file in the following format
+{
+  "resultingMatches": [
+    ["one participant name", "another participant name"],
+    ["one participant name", "another participant name"],
+    ...
+    ["one participant name", "another participant name"]
+  ]
+  "stats": TBD
+}
+error output:
+- 400 bad request
+- json file in the following format:
+{
+  "errorCode": TBD
+  "errorDescription": "what went wrong"
+}
+
+Suggested basic UI
+==================
+[Greeting page - OPTIONAL]
+- Some greeting message
+- a button as "let's start", taking you you to the next page
+
+[load file page]
+- instruction to load a .csv file
+- a button to load, clicking it will open a local files menu with filter on
+  .csv file. 
+- choosing a file with use the "/parse" api.
+  - on error - it will show an error message
+  - on success - it will take the user to the next page
+
+[Run game page]
+- instruction to run the game
+- on clicking "run":
+  - posting the participants and constraints to the "test" api 
+    - on error - it will show the error message
+    - on success it will move to the next step
+  - posting the participants and constraints to the "run" api
+    - on error - very unlikely, we did something wrong 
+    - on success - it will display the results in the next page
+
+[Results page]
+- showing the results from the previous page in some user-friendly format
+- [OPTIONAL] allowing the user to copy the results in one click
+- [OPTIONAL] Allowing the user to save the results 
+- allowing the user to close ([OPTIONAL] - display a warning if the results
+  were not copied or saved
+- allowing the user to start a new game with the same participants and
+  constrains
+- [OPTIONAL] allowing the user to start a new game with a new file (effectively - sending
+  him back to the [load file page]
+
+More ideas
+==========
+1. Add support for multiple CSV file formats (we can use google forms to fill
+the game, but its generating a different csv format)
+2. Add UI to edit the participants and constraints
+3. Add support for area constraints. 
